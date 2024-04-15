@@ -106,7 +106,6 @@ class Automata:
     def standardize(self):
         if not self.is_standard():
             new_state = State(self, self.num_states, True, False)
-
             for state in self.initial_states:
 
                 for label, final_states in state.transitions.items():
@@ -114,5 +113,4 @@ class Automata:
                         new_state.add_transition(label, final_state)
 
                 state.is_initial = False
-
-        self.states.append(new_state)
+            self.states.append(new_state)
