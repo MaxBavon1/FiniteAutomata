@@ -34,7 +34,7 @@ class State:
             self.transitions = {k : v for k, v in sorted(self.transitions.items(), key = lambda item : item[0])}
         else:
             print("Label not in alphabet !")
-    
+
     def __str__(self):
         output = "\t"
         output += "I" if self.is_initial else " "

@@ -25,7 +25,7 @@ class Automata:
     def __init__(self, alphabet : List[str], states : List[State]):
         self.alphabet : List[str]   = alphabet
         self.states   : List[State] = states
-    
+
     @property
     def num_states(self):
         return len(self.states)
@@ -47,7 +47,7 @@ class Automata:
 
         for state in self.states:
             transitions += state.get_transitions_list()
-        
+
         return transitions
 
     def __str__(self):
@@ -73,7 +73,7 @@ class Automata:
 
             # --- States ---
             states = [State(automata, i, False, False) for i in range(int(num_states))]
-        
+
             initial_states = initial_states.split(',')
             final_states = final_states.split(',')
 
