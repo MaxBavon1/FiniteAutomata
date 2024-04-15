@@ -32,14 +32,37 @@ class Automata:
 
     @property
     def initial_states(self):
-        return [state.state for state in self.states if state.isInitial]
+        return [state for state in self.states if state.is_initial]
 
     @property
     def final_states(self):
-        return [state.state for state in self.states if state.isFinal]
+        return [state for state in self.states if state.is_final]
+
+    @property
+    def transitions(self):
+        """
+        List of tuples (initial state, label, final state)
+        """
+        transitions = []
+
+        for state in self.states:
+            transitions += state.get_transitions_list()
+        
+        return transitions
+
+    def __str__(self):
+        output = "\t  |\t"
+        for label in self.alphabet:
+            output += f"|{label}\t"
+        output += "|\n"
+        
+        for state in self.states:
+            output += str(state)
+
+        return output
 
     @classmethod
-    def create_from_txt_file(cls, path : str):
+    def create_from_txt_file(cls, path : str) -> 'Automata':
         with open(path, 'r') as data:
 
             alphabet, num_states, initial_states, final_states, transitions = data.readlines()
@@ -64,7 +87,7 @@ class Automata:
 
             for transition in transitions:
                 initial, label, final = transition.split(' ')
-                states[int(initial)].add_transition(label, final)
+                states[int(initial)].add_transition(label, states[int(final)])
 
         automata.states = states
         return automata
@@ -73,16 +96,23 @@ class Automata:
     def create_from_json_file(cls, path : str):
         pass
 
-    def __str__(self):
-        output = "\t  |\t"
-        for label in self.alphabet:
-            output += f"|{label}\t"
-        output += "|\n"
-        
-        for state in self.states:
-            output += str(state)
+    def is_standard(self) -> bool:
+        single_state = len(self.initial_states) == 1
 
-        return output
+        entry_transitions = [transition for transition in self.transitions if transition[2] in self.initial_states]
 
-    def readWord(self):
-        pass
+        return single_state and not(entry_transitions)
+
+    def standardize(self):
+        if not self.is_standard():
+            new_state = State(self, self.num_states, True, False)
+
+            for state in self.initial_states:
+
+                for label, final_states in state.transitions.items():
+                    for final_state in final_states:
+                        new_state.add_transition(label, final_state)
+
+                state.is_initial = False
+
+        self.states.append(new_state)

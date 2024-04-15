@@ -1,4 +1,4 @@
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 __all__ = ["State"]
 
@@ -15,8 +15,17 @@ class State:
         self.automata                       = automata
         self.state       : int              = state
         self.transitions : Dict[str : List] = {label : [] for label in automata.alphabet}
-        self.is_initial  : bool             = is_final
+        self.is_initial  : bool             = is_initial
         self.is_final    : bool             = is_final
+    
+    def get_transitions_list(self) -> List[Tuple]:
+        transitions = []
+
+        for label, final_states in self.transitions.items():
+            for final_state in final_states:
+                transitions.append((self, label, final_state))
+        
+        return transitions
     
     def add_transition(self, label : str, state) -> None:
         if label in self.transitions:
@@ -36,12 +45,11 @@ class State:
             output += '|'
             
             for i in range(len(states)):
-                output += f"{states[i]}"
+                output += f"{states[i].state}"
                 if i != len(states) - 1:
                     output += ','
 
-            output += '\t|'
- 
+            output += '\t'
 
-        output += '\n'
+        output += "|\n"
         return output
