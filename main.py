@@ -8,3 +8,4 @@ if __name__ == "__main__":
 
     print(automata)
     #print("Standard : ", automata.is_standard())
+    #test
