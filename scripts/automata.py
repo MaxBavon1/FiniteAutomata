@@ -133,4 +133,14 @@ class Automata:
                         state.add_transition(label, new_state)
 
             self.states.append(new_state)
+
+    
+    def is_deterministic(self) -> bool:
+        single_state = len(self.initial_states) == 1
+
+        for state in self.states:
+            if any(len(final_states) > 1 for final_states in state.transitions.values()):
+                return False
+            
+        return single_state and True
             
