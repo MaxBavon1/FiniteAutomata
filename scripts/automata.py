@@ -96,6 +96,7 @@ class Automata:
     def create_from_json_file(cls, path : str):
         pass
 
+
     def is_standard(self) -> bool:
         single_state = len(self.initial_states) == 1
 
@@ -114,3 +115,22 @@ class Automata:
 
                 state.is_initial = False
             self.states.append(new_state)
+
+
+    def is_complete(self) -> bool:
+        for state in self.states:
+            if len(state.get_transitions_list()) != len(self.alphabet):
+                return False
+        return True
+    
+    def completion(self):
+        if not self.is_complete():
+            new_state = State(self, self.num_states, False, False)
+            [new_state.add_transition(label, new_state) for label in self.alphabet]
+            for state in self.states:
+                for label in self.alphabet:
+                    if not state.transitions.get(label):
+                        state.add_transition(label, new_state)
+
+            self.states.append(new_state)
+            
