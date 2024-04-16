@@ -92,11 +92,6 @@ class Automata:
         automata.states = states
         return automata
 
-    @classmethod
-    def create_from_json_file(cls, path : str):
-        pass
-
-
     def is_standard(self) -> bool:
         single_state = len(self.initial_states) == 1
 
@@ -147,3 +142,45 @@ class Automata:
     
     def determinize(self):
         # ouin ouin quoicoubeh c'est dur
+        if not self.is_deterministic():
+
+            # Initialization
+            initial_closure = frozenset(self.initial_states)
+            state_map = {initial_closure: State(self, 0, True, any(s.is_final for s in initial_closure))}
+            new_states = [state_map[initial_closure]]
+            queue = [initial_closure]
+
+            # Process each set of states
+            while queue:
+                current_set = queue.pop(0)
+                label_to_states = {}
+
+                # Collect transitions for all states in the current set
+                for state in current_set:
+                    for label, next_states in state.transitions.items():
+                        if label not in label_to_states:
+                            label_to_states[label] = set()
+                        label_to_states[label].update(next_states)
+
+                # For each label, determine the next set of states
+                for label, next_states in label_to_states.items():
+                    next_set = frozenset(next_states)
+                    if next_set not in state_map:
+                        is_final = any(state.is_final for state in next_states)
+                        new_state_id = len(new_states)
+                        new_state = State(self, new_state_id, False, is_final)
+                        state_map[next_set] = new_state
+                        new_states.append(new_state)
+                        queue.append(next_set)
+
+                    # Add transition from the current set to the new set of states
+                    current_state = state_map[current_set]
+                    next_state = state_map[next_set]
+                    current_state.add_transition(label, next_state)
+
+            # Update the automaton's states with the new DFA states
+            self.states = new_states
+    
+    def complementary(self):
+        for state in self.states:
+            state.is_final = not state.is_final
