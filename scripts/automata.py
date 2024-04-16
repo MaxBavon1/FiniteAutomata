@@ -119,28 +119,31 @@ class Automata:
 
     def is_complete(self) -> bool:
         for state in self.states:
-            if len(state.get_transitions_list()) != len(self.alphabet):
-                return False
+            for final_states in state.transitions.values():
+                if not final_states:
+                    return False
         return True
-    
+
     def completion(self):
         if not self.is_complete():
             new_state = State(self, self.num_states, False, False)
-            [new_state.add_transition(label, new_state) for label in self.alphabet]
-            for state in self.states:
-                for label in self.alphabet:
-                    if not state.transitions.get(label):
+
+            for label in self.alphabet: # Recursive Transitions to P
+                new_state.add_transition(label, new_state)
+
+            for state in self.states:   # Fill Transitions to P
+                for label in state.transitions:
+                    if not state.transitions[label]:
                         state.add_transition(label, new_state)
 
             self.states.append(new_state)
 
-    
     def is_deterministic(self) -> bool:
-        single_state = len(self.initial_states) == 1
-
         for state in self.states:
             if any(len(final_states) > 1 for final_states in state.transitions.values()):
                 return False
-            
-        return single_state and True
-            
+
+        return len(self.initial_states) == 1
+    
+    def determinize(self):
+        # ouin ouin quoicoubeh c'est dur
