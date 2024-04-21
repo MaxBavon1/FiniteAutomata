@@ -92,6 +92,17 @@ class Automata:
         automata.states = states
         return automata
 
+    # [Automata] #3
+    def save_to_txt_file(self, path: str):
+        with open(path, 'w') as file:
+            file.write(','.join(self.alphabet) + '\n')
+            file.write(str(self.num_states) + '\n')
+            file.write(','.join(str(state.state) for state in self.initial_states) + '\n')
+            file.write(','.join(str(state.state) for state in self.final_states) + '\n')
+            for transition in self.transitions:
+                file.write(f"{transition[0].state},{transition[1]},{transition[2].state}")
+
+
     def is_standard(self) -> bool:
         single_state = len(self.initial_states) == 1
 
