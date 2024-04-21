@@ -12,5 +12,7 @@ if __name__ == "__main__":
 
     print(f"Is deterministic ? : {automata.is_deterministic()}")
 
+    automata.complementarily()
+    print(automata)
     # print(f"Complete automata :{automata}")
     # print(f"Is deterministic ? : {automata.is_deterministic()}")

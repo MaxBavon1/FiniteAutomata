@@ -145,5 +145,9 @@ class Automata:
 
         return len(self.initial_states) == 1
     
-    def determinize(self):
-        # ouin ouin quoicoubeh c'est dur
+    # def determinize(self):
+    #     # ouin ouin quoicoubeh c'est dur
+
+    def complementarily(self):
+        for state in self.states:
+            state.is_final = not state.is_final
