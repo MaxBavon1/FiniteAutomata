@@ -27,16 +27,10 @@ class State:
         
         return transitions
     
-    def union(self, others*):
-        new_state = State(self.au)
-        for other
-
-        new_transitions = {label : [] for label in self.automata.alphabet}
-
-        for label in self.automata.alphabet:
-            new_transitions[label] = self.transitions[label] + other_state.transitions[label]
-        
-        return new_transitions
+    def union(self, *states): # For determinization<w
+        for state in states:
+            for label in state.transitions:
+                self.transitions[label] += state.transitions[label]
     
     def add_transition(self, label : str, state) -> None:
         if label in self.transitions:

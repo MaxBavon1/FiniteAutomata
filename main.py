@@ -13,7 +13,8 @@ if __name__ == "__main__":
     print(f"Is deterministic ? : {automata.is_deterministic()}")
     automata.determinize()
 
-    automata.complementarily()
+    print(f"Is deterministic ? : {automata.is_deterministic()}")
     print(automata)
-    # print(f"Complete automata :{automata}")
+
+    automata.minimize()
     # print(f"Is deterministic ? : {automata.is_deterministic()}")
