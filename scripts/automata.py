@@ -92,11 +92,6 @@ class Automata:
         automata.states = states
         return automata
 
-    @classmethod
-    def create_from_json_file(cls, path : str):
-        pass
-
-
     def is_standard(self) -> bool:
         single_state = len(self.initial_states) == 1
 
