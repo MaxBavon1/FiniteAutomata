@@ -1,0 +1,119 @@
+1. Load an automata from a file
+2. Save the automata to a file
+3. Check if the automata is complete
+4. Complete the automata
+5. Check if the automata is deterministic
+6. Determinize the automata
+7. Minimize the automata
+8. Exit
+
+Choose the number of the action : 1
+
+Choose the number of the file (between 1 and 44) : 18
+
+	  |	|a	|b	|c	|d	|
+	 F|0	|	|	|	|	|
+	I |1	|2	|3	|4	|0	|
+	  |2	|2	|3	|4	|0	|
+	  |3	|	|3	|4	|0	|
+	  |4	|	|	|4	|0	|
+
+1. Load an automata from a file
+2. Save the automata to a file
+3. Check if the automata is complete
+4. Complete the automata
+5. Check if the automata is deterministic
+6. Determinize the automata
+7. Minimize the automata
+8. Exit
+
+Choose the number of the action : 3
+
+	  |	|a	|b	|c	|d	|
+	 F|0	|	|	|	|	|
+	I |1	|2	|3	|4	|0	|
+	  |2	|2	|3	|4	|0	|
+	  |3	|	|3	|4	|0	|
+	  |4	|	|	|4	|0	|
+
+
+Is the automata complete ? : False
+
+1. Load an automata from a file
+2. Save the automata to a file
+3. Check if the automata is complete
+4. Complete the automata
+5. Check if the automata is deterministic
+6. Determinize the automata
+7. Minimize the automata
+8. Exit
+
+Choose the number of the action : 4
+
+	  |	|a	|b	|c	|d	|
+	 F|0	|5	|5	|5	|5	|
+	I |1	|2	|3	|4	|0	|
+	  |2	|2	|3	|4	|0	|
+	  |3	|5	|3	|4	|0	|
+	  |4	|5	|5	|4	|0	|
+	  |5	|5	|5	|5	|5	|
+
+1. Load an automata from a file
+2. Save the automata to a file
+3. Check if the automata is complete
+4. Complete the automata
+5. Check if the automata is deterministic
+6. Determinize the automata
+7. Minimize the automata
+8. Exit
+
+Choose the number of the action : 5
+
+	  |	|a	|b	|c	|d	|
+	 F|0	|5	|5	|5	|5	|
+	I |1	|2	|3	|4	|0	|
+	  |2	|2	|3	|4	|0	|
+	  |3	|5	|3	|4	|0	|
+	  |4	|5	|5	|4	|0	|
+	  |5	|5	|5	|5	|5	|
+
+
+Is the automata deterministic ? : True
+
+1. Load an automata from a file
+2. Save the automata to a file
+3. Check if the automata is complete
+4. Complete the automata
+5. Check if the automata is deterministic
+6. Determinize the automata
+7. Minimize the automata
+8. Exit
+
+Choose the number of the action : 6
+
+	  |	|a	|b	|c	|d	|
+	 F|0	|5	|5	|5	|5	|
+	I |1	|2	|3	|4	|0	|
+	  |2	|2	|3	|4	|0	|
+	  |3	|5	|3	|4	|0	|
+	  |4	|5	|5	|4	|0	|
+	  |5	|5	|5	|5	|5	|
+
+1. Load an automata from a file
+2. Save the automata to a file
+3. Check if the automata is complete
+4. Complete the automata
+5. Check if the automata is deterministic
+6. Determinize the automata
+7. Minimize the automata
+8. Exit
+
+Choose the number of the action : 7
+
+	  |	|a	|b	|c	|d	|
+	 F|0	|4	|4	|4	|4	|
+	  |1	|4	|4	|1	|0	|
+	I |2	|2,2	|3,3	|1,1	|0,0	|
+	  |3	|4	|3	|1	|0	|
+	  |4	|4	|4	|4	|4	|
+
