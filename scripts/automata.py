@@ -1,6 +1,5 @@
-from typing import List, Dict
+from typing import List
 from .state import State
-from collections.abc import Iterable  # To check if something is iterable
 
 __all__ = ["Automata"]
 
@@ -65,35 +64,45 @@ class Automata:
     @classmethod
     def create_from_txt_file(cls, path : str) -> 'Automata':
         with open(path, 'r') as data:
-
-            alphabet, num_states, initial_states, final_states, transitions = data.readlines()
-            
             # --- Alphabet ---
+            alphabet = data.readline()
+            if not alphabet:
+                print("Error: Empty file")
+                return
             alphabet = alphabet.replace('\n', '').split(',')
             automata = Automata(alphabet, [])
 
             # --- States ---
+            num_states = data.readline()
             states = [State(automata, i, False, False) for i in range(int(num_states))]
 
-            initial_states = initial_states.split(',')
-            final_states = final_states.split(',')
+            initial_states = data.readline()
+            if initial_states != '\n':
+                initial_states = initial_states.split(',')
 
-            for state in initial_states:
-                states[int(state)].is_initial = True
-            for state in final_states:
-                states[int(state)].is_final = True
+                for state in initial_states:
+                    states[int(state)].is_initial = True
+
+
+            final_states = data.readline()
+            if final_states != '\n':
+                final_states = final_states.split(',')
+
+                for state in final_states:
+                    states[int(state)].is_final = True
 
             # --- Transitions ---
-            transitions = transitions.split(',')
+            transitions = data.readline()
+            if transitions:
+                transitions = transitions.split(',')
 
-            for transition in transitions:
-                initial, label, final = transition.split(' ')
-                states[int(initial)].add_transition(label, states[int(final)])
+                for transition in transitions:
+                    initial, label, final = transition.split(' ')
+                    states[int(initial)].add_transition(label, states[int(final)])
 
         automata.states = states
         return automata
 
-    # [Automata] #3
     def save_to_txt_file(self, path: str):
         with open(path, 'w') as file:
             file.write(','.join(self.alphabet) + '\n')
@@ -102,7 +111,6 @@ class Automata:
             file.write(','.join(str(state.state) for state in self.final_states) + '\n')
             for transition in self.transitions:
                 file.write(f"{transition[0].state},{transition[1]},{transition[2].state}")
-
 
     def is_standard(self) -> bool:
         single_state = len(self.initial_states) == 1
@@ -153,7 +161,6 @@ class Automata:
         return len(self.initial_states) == 1
     
     def determinize(self):
-        # ouin ouin quoicoubeh c'est dur
         if not self.is_deterministic():
 
             # Initialization
